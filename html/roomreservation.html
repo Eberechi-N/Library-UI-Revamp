@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reserve a Study Room</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      #floorplan {
+        position: relative;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+      }
+      .room {
+        position: absolute;
+        border: 2px solid #000;
+        cursor: pointer;
+        transition: transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        text-align: center;
+      }
+      .room:hover {
+        transform: scale(1.1);
+      }
+      .room:hover::after {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      .room.booked {
+        background-color: red !important;
+        cursor: not-allowed;
+      }
+      #info-box {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-4">
+      <h1 class="text-center mb-4">Reserve a Study Room</h1>
+      <div class="row">
+        <!-- Floor Plan -->
+        <div class="col-md-8">
+          <div id="floorplan" style="width: 100%; height: 500px">
+            <!-- Room 1 -->
+            <div
+              class="room"
+              id="room1"
+              style="
+                text-align: center;
+                vertical-align: middle;
+                line-height: 90px;
+                top: 50px;
+                left: 50px;
+                width: 100px;
+                height: 100px;
+                background-color: #ffffff;
+              "
+            >
+              Room 1
+            </div>
+            <!-- Room 2 -->
+            <div
+              class="room"
+              id="room2"
+              style="
+                text-align: center;
+                vertical-align: middle;
+                line-height: 90px;
+                top: 50px;
+                left: 200px;
+                width: 100px;
+                height: 100px;
+                background-color: #ffffff;
+              "
+            >
+              Room 2
+            </div>
+
+
+            <!-- Room 3 -->
+            <div
+              class="room"
+              id="room3"
+              style="
+                text-align: center;
+                vertical-align: middle;
+                line-height: 90px;
+                top: 50px;
+                left: 350px;
+                width: 100px;
+                height: 100px;
+                background-color: #ffffff;
+              "
+            >
+              Room 3
+            </div>
+
+
+            <!-- Room 4 -->
+            <div
+              class="room"
+              id="room4"
+              style="
+                text-align: center;
+                vertical-align: middle;
+                line-height: 90px;
+                bottom: 50px;
+                left: 50px;
+                width: 200px;
+                height: 100px;
+                background-color: #ffffff;
+              "
+            >
+              Room 4
+            </div>
+            <!-- Room 5 -->
+            <div
+              class="room"
+              id="room5"
+              style="
+                text-align: center;
+                vertical-align: middle;
+                line-height: 200px;
+                top: 100px;
+                right: 25px;
+                width: 100px;
+                height: 250px;
+                background-color: #ffffff;
+              "
+            >
+              Room 5
+            </div>
+          </div>
+        </div>
+        <!-- Information Box -->
+        <div class="col-md-4">
+          <div id="info-box">
+            <h5>Room Information</h5>
+            <p id="room-info">Click on a room to view details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Room data
+      const roomDetails = {
+        room1: "Room 1: Basic Study Room \n Capacity: 1 person.",
+        room2: "Room 2: Basic Study Room  \n Capacity: 1 person.",
+        room3: "Room 3: Basic Study Room \n Capacity: 1 person.",
+        room4: "Room 4: Two Person Study Room \n Capacity: 2 person.",
+        room5: "Room 5: Meeting / Conference Room \n Capacity: 8 person.\n",
+      };
+      const rules = `
+<h3>Study Room Rules</h3>
+<ul>
+  <li><strong>No Food Allowed:</strong> Eating inside the study rooms is strictly prohibited to maintain cleanliness and avoid distractions.</li>
+  <li><strong>No Beverages Permitted:</strong> Drinks, including water bottles, coffee, and sodas, are not allowed to prevent spills and potential damage to furniture or equipment.</li>
+  <li><strong>Dispose of Trash Properly:</strong> If you have food or drinks with you, please finish them outside the study rooms and dispose of waste in the designated bins.</li>
+  <li><strong>Keep the Rooms Clean:</strong> Help us maintain a productive and welcoming environment for all users.</li>
+  <li><strong>Report Any Spills or Issues:</strong> Notify staff immediately if you accidentally bring in food or drinks and cause a spill.</li>
+</ul>
+`;
+      // Add hover and click event listeners
+      document.querySelectorAll(".room").forEach((room) => {
+        const originalText = room.textContent;
+        const roomInfo = roomDetails[room.id];
+
+
+        // Hover effect: Change text to "Book Now"
+        room.addEventListener("mouseenter", () => {
+          if (!room.classList.contains("booked")) {
+            room.textContent = "Book Now";
+            document.getElementById("room-info").innerHTML = roomInfo + rules;
+          }
+        });
+
+
+        // Hover out: Revert to original text
+        room.addEventListener("mouseleave", () => {
+          if (!room.classList.contains("booked")) {
+            room.textContent = originalText;
+          }
+        });
+
+
+        // Click event: Book the room
+        room.addEventListener("click", () => {
+          if (room.classList.contains("booked")) {
+            document.getElementById(
+              "room-info"
+            ).textContent = `Room ${room.id.slice(-1)} is already booked.`;
+            return;
+          }
+
+
+          room.classList.add("booked");
+          room.textContent = "Booked";
+          document.getElementById(
+            "room-info"
+          ).textContent = `Room ${room.id.slice(-1)} has been booked.`;
+        });
+      });
+    </script>
+  </body>
+</html>
