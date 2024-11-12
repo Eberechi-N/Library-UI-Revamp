@@ -57,6 +57,27 @@
         .bi-question-circle {
             display: block;  
         }
+        #tabNav .nav-link{
+            background-color: rgb(205, 177, 239);
+            border-color: black;
+            color: black;
+        }
+        #tabNav .nav-link.active{
+            background-color: rgb(218, 136, 224);
+        }
+        .input-group{
+            padding-top:15px;
+            padding-bottom:15px;
+        }
+        .homepage-search-button{
+            border-radius: 14px;
+            border: none;
+            background-color: rgb(222, 161, 222);
+            font-weight: bold;
+            width: 3vw;
+            height: 3.75vh;
+            margin-left: 1vw;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +117,7 @@
         
         <div class="input-group">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+            <button class="homepage-search-button" onclick="window.location.href='search_result.html'">→</button>
         </div>     
 
         <!-- Tabs navs -->
