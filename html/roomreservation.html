@@ -10,10 +10,17 @@
       rel="stylesheet"
     />
     <style>
+      body{
+          background-color:thistle;
+      }
+      .nav-pills .nav-link.active {
+          background-color: rgb(222, 161, 222);
+      }
       #floorplan {
         position: relative;
-        border: 2px solid #ddd;
+        border: 2px solid #000;
         border-radius: 8px;
+        background-color: white;
       }
       .room {
         position: absolute;
@@ -25,9 +32,13 @@
         justify-content: center;
         font-size: 14px;
         text-align: center;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 1.25rem;
       }
       .room:hover {
         transform: scale(1.1);
+        font-size: 1.20rem;
       }
       .room:hover::after {
         text-decoration: underline;
@@ -61,7 +72,7 @@
                       <a class="nav-link" href="../index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="roomreservation.html">Rooms</a>
+                      <a class="nav-link active" href="roomreservation.html">Rooms</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Services</a>
@@ -70,7 +81,7 @@
                       <a class="nav-link" href="search.html">Search</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link active" href="login.html">Login</a>
+                      <a class="nav-link" href="login.html">Login</a>
                   </li>
               </ul>
           </div>
@@ -197,7 +208,7 @@
         room2: "Room 2: Basic Study Room  \n Capacity: 1 person.",
         room3: "Room 3: Basic Study Room \n Capacity: 1 person.",
         room4: "Room 4: Two Person Study Room \n Capacity: 2 person.",
-        room5: "Room 5: Meeting / Conference Room \n Capacity: 8 person.\n",
+        room5: "Room 5: Conference Room \n Capacity: 8 person.\n",
       };
       const rules = `
 <h3>Study Room Rules</h3>
