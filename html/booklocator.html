@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find your Title</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      #floorplan {
+        position: relative;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+      }
+      .shelf {
+        position: absolute;
+        border: 2px solid #000;
+        cursor: pointer;
+        transition: transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        text-align: center;
+      }
+      .shelf:hover {
+        transform: scale(1.1);
+      }
+      .shelf.selected {
+        background-color: red !important;
+        cursor: not-allowed;
+      }
+      #info-box {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+      }
+      .book-cover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        text-align: center;
+        width: 200px;
+        height: 300px;
+        border: 2px solid #000;
+        margin: 10px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .book-cover:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-4">
+      <h1 class="text-center mb-4">Locate your Title</h1>
+      <div class="row">
+        <!-- Floor Plan -->
+        <div class="col-md-8">
+          <div id="floorplan" style="width: 100%; height: 500px">
+            <!-- Shelves -->
+            <div
+              class="shelf"
+              id="shelf1"
+              style="
+                top: 100px;
+                left: 0px;
+                width: 75px;
+                height: 270px;
+                background-color: #ffffff;
+              "
+            >
+              Fiction
+            </div>
+            <div
+              class="shelf"
+              id="shelf2"
+              style="
+                top: 120px;
+                left: 200px;
+                width: 230px;
+                height: 50px;
+                background-color: #ffffff;
+              "
+            >
+              TextBooks
+            </div>
+            <div
+              class="shelf"
+              id="shelf3"
+              style="
+                top: 120px;
+                left: 480px;
+                width: 230px;
+                height: 50px;
+                background-color: #ffffff;
+              "
+            >
+              History
+            </div>
+            <div
+              class="shelf"
+              id="shelf4"
+              style="
+                top: 270px;
+                left: 200px;
+                width: 230px;
+                height: 50px;
+                background-color: #ffffff;
+              "
+            >
+              Nonfiction
+            </div>
+            <div
+              class="shelf"
+              id="shelf5"
+              style="
+                top: 270px;
+                left: 480px;
+                width: 230px;
+                height: 50px;
+                background-color: #ffffff;
+              "
+            >
+              Mystery
+            </div>
+          </div>
+        </div>
+        <!-- Information Box -->
+        <div class="col-md-4">
+          <div id="info-box">
+            <h5>Book Information</h5>
+            <p id="shelf-info">
+              Click on a shelf or book cover to view details.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Book Covers -->
+      <div class="row mt-4 text-center">
+        <div class="col-3">
+          <div class="book-cover" id="book1" style="background-color: #ffcccb">
+            Pride and Prejudice
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="book2" style="background-color: #add8e6">
+            Physics for Beginners
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="book3" style="background-color: #90ee90">
+            The Art of Design
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="book4" style="background-color: #d3d3d3">
+            A Brief History of Time
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script>
+      const shelfInfo = {
+        shelf1: "Fiction: A collection of timeless novels and modern classics.",
+        shelf2:
+          "Textbooks: Essential resources for academic studies and guides.",
+        shelf3:
+          "History: Dive into the past with historical narratives and references.",
+        shelf4:
+          "Non-Fiction: Explore the world of science and reality through engaging textbooks.",
+        shelf5:
+          "Mystery: Uncover secrets with books on art, design, and thrilling stories.",
+      };
+
+
+      const bookInfo = {
+        book1: {
+          title: "Pride and Prejudice",
+          shelf: "shelf1",
+          description:
+            "Jane Austen's classic novel of manners, morality, and romance in Regency England.",
+        },
+        book2: {
+          title: " Physics for Beginners",
+          shelf: "shelf2",
+          description:
+            "A comprehensive guide for students and enthusiasts starting out in the world of physics.",
+        },
+        book3: {
+          title: "The Art of Design",
+          shelf: "shelf4",
+          description:
+            "An inspiring exploration of artistic design principles and their real-world applications.",
+        },
+        book4: {
+          title: "A Brief History of Time",
+          shelf: "shelf3",
+          description:
+            "Stephen Hawking's groundbreaking journey into the universe's origins, time, and black holes.",
+        },
+      };
+
+
+      // Reset all shelves to their original state
+      function resetShelves() {
+        document.querySelectorAll(".shelf").forEach((shelf) => {
+          shelf.style.backgroundColor = "#ffffff";
+          shelf.classList.remove("selected");
+        });
+      }
+
+
+      // Add event listeners to shelves
+      document.querySelectorAll(".shelf").forEach((shelf) => {
+        shelf.addEventListener("click", () => {
+          const info = shelfInfo[shelf.id] || "Unknown shelf.";
+          document.getElementById("shelf-info").textContent = info;
+        });
+      });
+
+
+      // Add event listeners to book covers
+      document.querySelectorAll(".book-cover").forEach((book) => {
+        book.addEventListener("click", () => {
+          const bookDetails = bookInfo[book.id];
+          if (bookDetails) {
+            resetShelves(); // Reset all shelves first
+            const shelf = document.getElementById(bookDetails.shelf);
+            shelf.style.backgroundColor = "black";
+            shelf.classList.add("selected");
+            document.getElementById(
+              "shelf-info"
+            ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
