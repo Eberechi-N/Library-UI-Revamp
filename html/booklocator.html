@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Find your Title</title>
+    <title>Find Your Title</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -43,14 +43,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
-        text-align: center;
-        width: 200px;
-        height: 300px;
-        border: 2px solid #000;
-        margin: 10px;
+        width: 150px;
+        height: 200px;
+        margin: 10px auto;
         cursor: pointer;
         transition: transform 0.2s;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .book-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       .book-cover:hover {
         transform: scale(1.1);
@@ -59,7 +64,7 @@
   </head>
   <body>
     <div class="container my-4">
-      <h1 class="text-center mb-4">Locate your Title</h1>
+      <h1 class="text-center mb-4">Locate Your Title</h1>
       <div class="row">
         <!-- Floor Plan -->
         <div class="col-md-8">
@@ -145,28 +150,27 @@
       <!-- Book Covers -->
       <div class="row mt-4 text-center">
         <div class="col-3">
-          <div class="book-cover" id="book1" style="background-color: #ffcccb">
-            Pride and Prejudice
+          <div class="book-cover" id="book1">
+            <img src="\assets\hungerGames.jpg" alt="Hunger Games Cover" />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book2" style="background-color: #add8e6">
-            Physics for Beginners
+          <div class="book-cover" id="book2">
+            <img src="\assets\physicsTb.jpg" alt="Physics for Beginners Cover" />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book3" style="background-color: #90ee90">
-            The Art of Design
+          <div class="book-cover" id="book3">
+            <img src="\assets\artOfDesign.jpg" alt="The Art of Design Cover" />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book4" style="background-color: #d3d3d3">
-            A Brief History of Time
+          <div class="book-cover" id="book4">
+            <img src="\assets\BriefHistoryTime.jpg" alt="A Brief History of Time Cover" />
           </div>
         </div>
       </div>
     </div>
-
 
     <!-- Bootstrap Bundle with Popper -->
     <script>
@@ -182,16 +186,15 @@
           "Mystery: Uncover secrets with books on art, design, and thrilling stories.",
       };
 
-
       const bookInfo = {
         book1: {
-          title: "Pride and Prejudice",
+          title: "Hunger Games",
           shelf: "shelf1",
           description:
-            "Jane Austen's classic novel of manners, morality, and romance in Regency England.",
+            "In a dystopian future, the annual Hunger Games are a televised event where the government of Panem forces teenagers to fight to the death as punishment for rebellion.",
         },
         book2: {
-          title: " Physics for Beginners",
+          title: "Physics for Beginners",
           shelf: "shelf2",
           description:
             "A comprehensive guide for students and enthusiasts starting out in the world of physics.",
@@ -210,8 +213,6 @@
         },
       };
 
-
-      // Reset all shelves to their original state
       function resetShelves() {
         document.querySelectorAll(".shelf").forEach((shelf) => {
           shelf.style.backgroundColor = "#ffffff";
@@ -219,8 +220,6 @@
         });
       }
 
-
-      // Add event listeners to shelves
       document.querySelectorAll(".shelf").forEach((shelf) => {
         shelf.addEventListener("click", () => {
           const info = shelfInfo[shelf.id] || "Unknown shelf.";
@@ -228,13 +227,11 @@
         });
       });
 
-
-      // Add event listeners to book covers
       document.querySelectorAll(".book-cover").forEach((book) => {
         book.addEventListener("click", () => {
           const bookDetails = bookInfo[book.id];
           if (bookDetails) {
-            resetShelves(); // Reset all shelves first
+            resetShelves();
             const shelf = document.getElementById(bookDetails.shelf);
             shelf.style.backgroundColor = "black";
             shelf.classList.add("selected");
@@ -247,7 +244,3 @@
     </script>
   </body>
 </html>
-
-
-
-
