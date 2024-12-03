@@ -100,11 +100,11 @@
 
     <!-- Main Content -->
     <main class="container">
-
+        
         <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            <input id = searchInput type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                 aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+            <button id = searchButton type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
         </div>
 
         <!-- Tabs navs -->
@@ -157,9 +157,102 @@
                 Misc Results
             </div>
         </div>
+        
         <!-- Tabs content -->
     </main>
+    <script>
+        
+        const searchInput = document.getElementById("searchInput")
+        const searchButton = document.getElementById("searchButton")
 
+        const resultsDiv = document.querySelector(".search_results");
+        // Extract the search query from the URL
+        const params = new URLSearchParams(window.location.search);
+        const firstQuery = params.get('q');
+        function getBooks(query){
+        if (!query) {
+            resultsDiv.innerHTML = '<p style="color: red;">No search term provided.</p>';
+            } else {
+                // Fetch results from the server using the query
+                fetch(`http://localhost:5001/api/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Search Completed ", data)
+                        const books = data.docs.slice(0, 10); // Limit to 10 results
+                        resultsDiv.innerHTML = books.map(book => {
+                        // Generate the cover URL (you can adjust the size as needed)
+                            const coverUrl = book.isbn ? 
+                            `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-S.jpg` : 
+                            book.cover_edition_key ? 
+                            `https://covers.openlibrary.org/b/id/${book.cover_edition_key}-S.jpg` :
+                            '';
+                            const genreList = book.subject ? book.subject : [];
+                            console.log(genreList)
+                            let foundGenre = "Not Located"
+                            const genres = [
+                            "fantasy",//
+                            "horror",//
+                            "literature",//
+                            "science fiction",//
+                            "thriller",//
+                            "romance",//
+                            "plays",//
+                            "mystery",//
+                            "architecture",
+                            "mathematics",//
+                            "biology",//
+                            "physics",//
+                            "programming",//
+                            "religion",
+                            "history",
+                            "kids books",//
+                            "fiction",//
+                            "young adult"//
+                        ];
+
+                        // Function to find the first shared genre
+                        
+                        for (let genre of genreList) {
+                            if (genres.includes(genre.toLowerCase())) {
+                                foundGenre = genre.toLowerCase(); // Return the first shared genre
+                                break;
+                            }
+                        }
+                        // Return null if no shared genre is found
+                    
+                        console.log(foundGenre)
+                        
+                        const canLocate = book.subject ? "Locate " : "Not Avaliable"
+                        return`
+                            <div class="book">
+                                <h3>${book.title}</h3>
+                                <p>Author: ${book.author_name ? book.author_name.join(', ') : 'Unknown'}</p>
+                                <p>First Published: ${book.first_publish_year || 'Unknown'}</p>
+                                <button onclick="location.href = 'booklocator.html?q=${encodeURIComponent(foundGenre)}';" class="btn btn-outline-primary" >${canLocate}</button>
+                                ${coverUrl ? `<img src="${coverUrl}" alt="Book Cover" />` : ''}
+                            </div>
+                        `}).join('');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching books:', error);
+                        resultsDiv.innerHTML = '<p style="color: red;">Failed to fetch books. Please try again later.</p>';
+                    });
+            }
+        }
+        getBooks(firstQuery);
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (!query) {
+                alert('Please enter a search term.');
+                return;
+            }
+            // Redirect to results.html with the search query as a URL parameter
+            getBooks(query)
+        })
+
+    </script>
+    </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

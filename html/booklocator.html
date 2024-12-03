@@ -37,15 +37,16 @@
         justify-content: center;
         font-size: 14px;
         text-align: center;
-        border-radius: 10px;
+        border-radius: 5px;
         
       }
       .shelf:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
       .shelf.selected {
         background-color:  rgb(222, 161, 222) !important;
       }
+      
       #info-box {
         background-color: #f8f9fa;
         border: 1px solid #ddd;
@@ -113,15 +114,199 @@
         <!-- Floor Plan -->
         <div class="col-md-8">
           <div id="floorplan" style="width: 100%; height: 500px">
-            <!-- Shelves -->
+            <!-- Left Corner Wall Shelves -->
             <div
-              class="shelf"
+              class="shelf vert-right"
               id="shelf1"
               style="
-                top: 100px;
-                left: 15px;
-                width: 75px;
-                height: 270px;
+                top: 5px;
+                left: 5px;
+                width: 30px;
+                height: 160px;
+                background-color: #ffffff;  
+                writing-mode: vertical-rl;
+              "
+            >
+              Textbooks
+            </div>
+
+            <div
+              class="shelf"
+              id="religion"
+              style="
+                top: 170px;
+                left: 5px;
+                width: 30px;
+                height: 160px;
+                background-color: #ffffff;
+                writing-mode: vertical-rl;    
+              "
+            >
+              Religion
+            </div>
+
+            <div
+              class="shelf"
+              id="history"
+              style="
+                top: 335px;
+                left: 5px;
+                width: 30px;
+                height: 160px;
+                background-color: #ffffff;    
+                writing-mode: vertical-rl; 
+              "
+            >
+              History
+            </div>
+
+            <!-- Top Right Corner Wall Shelves -->
+            <div
+              class="shelf"
+              id="architecture"
+              style="
+                top: 33px;
+                right: 5px;
+                width: 30px;
+                height: 120px;
+                background-color: #ffffff;
+                writing-mode: vertical-rl;
+              "
+            >
+              Architecture
+            </div>
+
+            <div
+              class="shelf"
+              id="plays"
+              style="
+                top: 155px;
+                right: 5px;
+                width: 30px;
+                height: 120px;
+                background-color: #ffffff;
+                writing-mode: vertical-rl;
+              "
+            >
+              Plays
+            </div>
+            <div
+              class="shelf"
+              id="kids books"
+              style="
+                top: 5px;
+                right: 165px;
+                width: 130px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+            Kids Books
+            </div>
+            <div
+              class="shelf"
+              id="fantasy"
+              style="
+                top: 5px;
+                right: 33px;
+                width: 130px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Fantasy
+            </div>
+            
+
+            <!-- Top ROW 1 -->
+            <div
+              class="shelf"
+              id="biology"
+              style="
+                top: 120px;
+                left: 95px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Biology
+            </div>
+            <div
+              class="shelf"
+              id="physics"
+              style="
+                top: 120px;
+                left: 262px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Physics
+            </div>
+            <div
+              class="shelf"
+              id="mathematics"
+              style="
+                top: 120px;
+                left: 430px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Mathematics
+            </div>
+            <div
+              class="shelf"
+              id="programming"
+              style="
+                top: 120px;
+                left: 597px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Programming
+            </div>
+
+            <!-- Middle ROW 2 -->
+            <div
+              class="shelf"
+              id="literature"
+              style="
+                top: 215px;
+                left: 95px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Literature
+            </div>
+            <div
+              class="shelf"
+              id="young adult"
+              style="
+                top: 215px;
+                left: 262px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Young Adult
+            </div>
+            <div
+              class="shelf"
+              id="fiction"
+              style="
+                top: 215px;
+                left: 430px;
+                width: 165px;
+                height: 30px;
                 background-color: #ffffff;
               "
             >
@@ -129,56 +314,71 @@
             </div>
             <div
               class="shelf"
-              id="shelf2"
+              id="mystery"
               style="
-                top: 120px;
-                left: 200px;
-                width: 230px;
-                height: 50px;
-                background-color: #ffffff;
-              "
-            >
-              TextBooks
-            </div>
-            <div
-              class="shelf"
-              id="shelf3"
-              style="
-                top: 120px;
-                left: 480px;
-                width: 230px;
-                height: 50px;
-                background-color: #ffffff;
-              "
-            >
-              History
-            </div>
-            <div
-              class="shelf"
-              id="shelf4"
-              style="
-                top: 270px;
-                left: 200px;
-                width: 230px;
-                height: 50px;
-                background-color: #ffffff;
-              "
-            >
-              Nonfiction
-            </div>
-            <div
-              class="shelf"
-              id="shelf5"
-              style="
-                top: 270px;
-                left: 480px;
-                width: 230px;
-                height: 50px;
+                top: 215px;
+                left: 597px;
+                width: 165px;
+                height: 30px;
                 background-color: #ffffff;
               "
             >
               Mystery
             </div>
+
+             <!-- Last ROW 3 -->
+             <div
+             class="shelf"
+             id="horror"
+             style="
+               top: 305px;
+               left: 95px;
+               width: 165px;
+               height: 30px;
+               background-color: #ffffff;
+             "
+           >
+             Horror
+           </div>
+           <div
+             class="shelf"
+             id="science fiction"
+             style="
+               top: 305px;
+               left: 262px;
+               width: 165px;
+               height: 30px;
+               background-color: #ffffff;
+             "
+           >
+             Science Fiction
+           </div>
+           <div
+             class="shelf"
+             id="romance"
+             style="
+               top: 305px;
+               left: 430px;
+               width: 165px;
+               height: 30px;
+               background-color: #ffffff;
+             "
+           >
+             Romance
+           </div>
+           <div
+             class="shelf"
+             id="thriller"
+             style="
+               top: 305px;
+               left: 597px;
+               width: 165px;
+               height: 30px;
+               background-color: #ffffff;
+             "
+           >
+             Thriller
+           </div>
           </div>
         </div>
         <!-- Information Box -->
@@ -218,50 +418,48 @@
     </div>
 
     <!-- Bootstrap Bundle with Popper -->
-    <script>
-      const shelfInfo = {
-        shelf1: "Fiction: A collection of timeless novels and modern classics.",
-        shelf2:
-          "Textbooks: Essential resources for academic studies and guides.",
-        shelf3:
-          "History: Dive into the past with historical narratives and references.",
-        shelf4:
-          "Non-Fiction: Explore the world of science and reality through engaging textbooks.",
-        shelf5:
-          "Mystery: Uncover secrets with books on art, design, and thrilling stories.",
-      };
 
-      const bookInfo = {
-        book1: {
-          title: "Hunger Games",
-          shelf: "shelf1",
-          description:
-            "In a dystopian future, the annual Hunger Games are a televised event where the government of Panem forces teenagers to fight to the death as punishment for rebellion.",
-        },
-        book2: {
-          title: "Physics for Beginners",
-          shelf: "shelf2",
-          description:
-            "A comprehensive guide for students and enthusiasts starting out in the world of physics.",
-        },
-        book3: {
-          title: "The Art of Design",
-          shelf: "shelf4",
-          description:
-            "An inspiring exploration of artistic design principles and their real-world applications.",
-        },
-        book4: {
-          title: "A Brief History of Time",
-          shelf: "shelf3",
-          description:
-            "Stephen Hawking's groundbreaking journey into the universe's origins, time, and black holes.",
-        },
-      };
+    <script>
+      /*
+        Fantasy
+        Horror
+        Literature
+        Science Fiction
+        Thriller
+        Rommance
+        Plays
+        Mystery
+        Architecture
+        Mathematics
+        Biology
+        Physics
+        Programming
+        Religion
+        History
+        Kids Books
+        
+        */
+      const params = new URLSearchParams(window.location.search);
+      const firstQuery = params.get('q');
+      
+      
+      let selectedShelf = document.getElementById(firstQuery.toLowerCase);
+      selectShelf(selectedShelf);
+      
+      console.log("Book Locator", firstQuery)
+      function selectShelf(shelf){
+        shelf.classList.add("selected");
+
+        document.getElementById(
+          "shelf-info"
+        ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
+      }
 
       function resetShelves() {
         document.querySelectorAll(".shelf").forEach((shelf) => {
           shelf.style.backgroundColor = "#ffffff";
           shelf.classList.remove("selected");
+
         });
       }
 
@@ -274,15 +472,12 @@
 
       document.querySelectorAll(".book-cover").forEach((book) => {
         book.addEventListener("click", () => {
-          const bookDetails = bookInfo[book.id];
+          const bookDetails = bookInfo[book.id]; 
           if (bookDetails) {
             resetShelves();
             const shelf = document.getElementById(bookDetails.shelf);
-            shelf.style.backgroundColor = "black";
-            shelf.classList.add("selected");
-            document.getElementById(
-              "shelf-info"
-            ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
+            selectShelf(shelf);
+            
           }
         });
       });
