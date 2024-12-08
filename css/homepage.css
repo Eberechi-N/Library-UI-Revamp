@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+.carousel-image {
+    max-height: 400px; /* Limit the max height of carousel images */
+    max-width: 600px; /* Set a max width to prevent excessive widening */
+    margin: 0 auto; /* Center the image */
+    object-fit: contain; /* Maintain aspect ratio without stretching */
+}
+
+@media (max-width: 768px) {
+    .carousel-image {
+        max-height: 200px; /* Reduce the image height on smaller screens */
+    }
+}
+
+/* Other existing styles */
+.browser-frame {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.browser-buttons {
+    display: inline-block;
+}
+
+.browser-button {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.back { background-color: #ff5f56; }
+.forward { background-color: #ffbd2e; }
+.home { background-color: #27c93f; }
+
+.address-bar {
+    display: inline-block;
+    width: calc(100% - 150px);
+    background-color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.nav-menu {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+}
+
+.nav-menu .nav-link {
+    color: #000;
+}
+
+.nav-menu .nav-item:first-child .nav-link {
+    background-color: #007bff;
+    color: white;
+}
+
+.main-content {
+    padding: 50px 0;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.book-icon {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 0 auto 50px;
+}
+
+.book-page {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #000;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+.page1 { transform: rotate(-12deg); }
+.page2 { transform: rotate(-6deg); }
+.page3 { transform: rotate(0deg); }
+.page4 { transform: rotate(6deg); }
+.page5 { transform: rotate(12deg); }
+
+.action-buttons .btn {
+    margin: 0 10px;
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container text-center {
+        max-width: 1140px;
+    }
+}
