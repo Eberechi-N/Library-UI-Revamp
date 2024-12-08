@@ -45,9 +45,16 @@
         .room:hover {
             transform: scale(1.05);
         }
+
+        .room.selected {
+            background-color: gray !important;
+            color: white;
+        }
+
         .room.booked {
             background-color: red !important;
             cursor: not-allowed;
+            color: white;
         }
         #info-box, #booking-box {
             background-color: #ffffff;
@@ -144,14 +151,31 @@
                         <div id="timeSlots" class="d-flex flex-wrap">
                         </div>
                     </div>
-                    <button class="btn btn-primary w-100" id="bookButton" disabled>Book Room</button>
+                    <button class="btn btn-primary w-100" id="bookButton" style="color: black; background-color: thistle; border-color: thistle;">Book Room</button>
                 </div>
                 <div id="info-box">
                     <h5>Room Information</h5>
-                    <p id="room-info" class="text-muted">Click on a room to view details.</p>
+                    <p id="room-info" class="text-bold">Click on a room to view details.</p>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Booking Error</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body" id="alertModalBody">
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
     </div>
 
     <!-- Confirmation Modal -->
@@ -175,142 +199,188 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const rooms = [
-                { id: 'room1', name: 'Room 1', capacity: 1, description: 'Basic Study Room' },
-                { id: 'room2', name: 'Room 2', capacity: 1, description: 'Basic Study Room' },
-                { id: 'room3', name: 'Room 3', capacity: 1, description: 'Basic Study Room' },
-                { id: 'room4', name: 'Room 4', capacity: 2, description: 'Two Person Study Room' },
-                { id: 'room5', name: 'Room 5', capacity: 8, description: 'Conference Room' },
-                { id: 'room6', name: 'Room 6', capacity: 1, description: 'Quiet Study Room' },
-                { id: 'room7', name: 'Room 7', capacity: 1, description: 'Quiet Study Room' },
-                { id: 'room8', name: 'Room 8', capacity: 4, description: 'Group Study Room' }
-            ];
+      document.addEventListener('DOMContentLoaded', function() {
+          const rooms = [
+              { id: 'room1', name: 'Room 1', capacity: 1, description: 'Basic Study Room' },
+              { id: 'room2', name: 'Room 2', capacity: 1, description: 'Basic Study Room' },
+              { id: 'room3', name: 'Room 3', capacity: 1, description: 'Basic Study Room' },
+              { id: 'room4', name: 'Room 4', capacity: 2, description: 'Two Person Study Room' },
+              { id: 'room5', name: 'Room 5', capacity: 8, description: 'Conference Room' },
+              { id: 'room6', name: 'Room 6', capacity: 1, description: 'Quiet Study Room' },
+              { id: 'room7', name: 'Room 7', capacity: 1, description: 'Quiet Study Room' },
+              { id: 'room8', name: 'Room 8', capacity: 4, description: 'Group Study Room' }
+          ];
 
-            let selectedRoom = null;
-            let selectedDate = null;
-            let selectedTime = null;
+          let selectedRoom = null;
+          let selectedDate = null;
+          let selectedTime = null;
 
-            const rules = `
-                <h3>Study Room Rules</h3>
-                <ul>
-                    <li><strong>No Food Allowed:</strong> Eating inside the study rooms is strictly prohibited to maintain cleanliness and avoid distractions.</li>
-                    <li><strong>No Beverages Permitted:</strong> Drinks, including water bottles, coffee, and sodas, are not allowed to prevent spills and potential damage to furniture or equipment.</li>
-                    <li><strong>Dispose of Trash Properly:</strong> If you have food or drinks with you, please finish them outside the study rooms and dispose of waste in the designated bins.</li>
-                    <li><strong>Keep the Rooms Clean:</strong> Help us maintain a productive and welcoming environment for all users.</li>
-                    <li><strong>Report Any Spills or Issues:</strong> Notify staff immediately if you accidentally bring in food or drinks and cause a spill.</li>
-                </ul>
-            `;
+          const rules = `
+              <h3>Study Room Rules</h3>
+              <ul>
+                  <li><strong>No Food Allowed:</strong> Eating inside the study rooms is strictly prohibited to maintain cleanliness and avoid distractions.</li>
+                  <li><strong>No Beverages Permitted:</strong> Drinks, including water bottles, coffee, and sodas, are not allowed to prevent spills and potential damage to furniture or equipment.</li>
+                  <li><strong>Dispose of Trash Properly:</strong> If you have food or drinks with you, please finish them outside the study rooms and dispose of waste in the designated bins.</li>
+                  <li><strong>Keep the Rooms Clean:</strong> Help us maintain a productive and welcoming environment for all users.</li>
+                  <li><strong>Report Any Spills or Issues:</strong> Notify staff immediately if you accidentally bring in food or drinks and cause a spill.</li>
+              </ul>
+          `;
 
-            // Initialize Flatpickr
-            const datePicker = flatpickr("#datePicker", {
-                minDate: "today",
-                dateFormat: "Y-m-d",
-                onChange: function(selectedDates) {
-                    selectedDate = selectedDates[0];
-                    generateTimeSlots();
-                    updateBookButton();
-                }
-            });
+          // Initialize Flatpickr
+          const datePicker = flatpickr("#datePicker", {
+              minDate: "today",
+              dateFormat: "Y-m-d",
+              onChange: function(selectedDates) {
+                  selectedDate = selectedDates[0];
+                  generateTimeSlots();
+                  updateBookButton();
+              }
+          });
 
-            // Generate time slots
-            function generateTimeSlots() {
-                const timeSlotsContainer = document.getElementById('timeSlots');
-                timeSlotsContainer.innerHTML = '';
-                
-                const times = ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
-                
-                times.forEach(time => {
-                    const slot = document.createElement('div');
-                    slot.className = 'time-slot';
-                    slot.textContent = time;
-                    
-                    // Randomly make some slots unavailable
-                    if (Math.random() < 0.3) {
-                        slot.classList.add('unavailable');
-                    } else {
-                        slot.addEventListener('click', () => selectTimeSlot(slot, time));
-                    }
-                    
-                    timeSlotsContainer.appendChild(slot);
-                });
-            }
+          // Generate time slots
+          function generateTimeSlots() {
+              const timeSlotsContainer = document.getElementById('timeSlots');
+              timeSlotsContainer.innerHTML = '';
+              
+              const times = ['9:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
+              
+              times.forEach(time => {
+                  const slot = document.createElement('div');
+                  slot.className = 'time-slot';
+                  slot.textContent = time;
+                  
+                  // Randomly make some slots unavailable
+                  if (Math.random() < 0.3) {
+                      slot.classList.add('unavailable');
+                  } else {
+                      slot.addEventListener('click', () => selectTimeSlot(slot, time));
+                  }
+                  
+                  timeSlotsContainer.appendChild(slot);
+              });
+          }
 
-            // Handle room selection
-            rooms.forEach(room => {
-                const roomElement = document.getElementById(room.id);
-                roomElement.addEventListener('click', () => {
-                    selectedRoom = room;
-                    
-                    // Update UI
-                    document.querySelectorAll('.room').forEach(r => r.classList.remove('selected'));
-                    roomElement.classList.add('selected');
-                    
-                    // Show room details
-                    const roomInfo = document.getElementById('room-info');
-                    roomInfo.innerHTML = `
-                        <h4>${room.name}</h4>
-                        <p>${room.description}<br>Capacity: ${room.capacity} ${room.capacity > 1 ? 'people' : 'person'}</p>
-                        ${rules}
-                    `;
-                    
-                    updateBookButton();
-                });
+          // Handle room selection
+          rooms.forEach(room => {
+              const roomElement = document.getElementById(room.id);
+              roomElement.addEventListener('click', () => {
+                  if (roomElement.classList.contains('booked')) {
+                      return;
+                  }
+                  
+                  // If clicking the already selected room, deselect it
+                  if (selectedRoom && selectedRoom.id === room.id) {
+                      roomElement.classList.remove('selected');
+                      roomElement.textContent = room.name;
+                      selectedRoom = null;
+                      updateRoomInfo();
+                      updateBookButton();
+                      return;
+                  }
+                  
+                  // Deselect previously selected room
+                  if (selectedRoom) {
+                      const prevRoomElement = document.getElementById(selectedRoom.id);
+                      prevRoomElement.classList.remove('selected');
+                      prevRoomElement.textContent = selectedRoom.name;
+                  }
+                  
+                  // Select new room
+                  roomElement.classList.add('selected');
+                  roomElement.textContent = 'SELECTED';
+                  selectedRoom = room;
+                  
+                  updateRoomInfo();
+                  updateBookButton();
+              });
+          });
 
-                // Hover effects
-                roomElement.addEventListener('mouseenter', () => {
-                    if (!roomElement.classList.contains('booked')) {
-                        roomElement.textContent = 'Book Now';
-                    }
-                });
+          function updateRoomInfo() {
+              const roomInfo = document.getElementById('room-info');
+              if (selectedRoom) {
+                  roomInfo.innerHTML = `
+                      <h4>${selectedRoom.name}</h4>
+                      <p>${selectedRoom.description}<br>Capacity: ${selectedRoom.capacity} ${selectedRoom.capacity > 1 ? 'people' : 'person'}</p>
+                      ${rules}
+                  `;
+              } else {
+                  roomInfo.innerHTML = '<p class="text-muted">Click on a room to view details.</p>';
+              }
+          }
 
-                roomElement.addEventListener('mouseleave', () => {
-                    if (!roomElement.classList.contains('booked')) {
-                        roomElement.textContent = room.name;
-                    }
-                });
-            });
+          // Handle time slot selection
+          function selectTimeSlot(slot, time) {
+              if (slot.classList.contains('unavailable')) return;
 
-            // Handle time slot selection
-            function selectTimeSlot(slot, time) {
-                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                slot.classList.add('selected');
-                selectedTime = time;
-                updateBookButton();
-            }
+              document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+              slot.classList.add('selected');
+              selectedTime = time;
+              updateBookButton();
+          }
 
-            // Update book button state
-            function updateBookButton() {
-                const bookButton = document.getElementById('bookButton');
-                bookButton.disabled = !(selectedRoom && selectedDate && selectedTime);
-            }
+          // Update book button state
+          function updateBookButton() {
+              const bookButton = document.getElementById('bookButton');
+              bookButton.disabled = !(selectedRoom && selectedDate && selectedTime);
+          }
 
-            // Handle booking
-            document.getElementById('bookButton').addEventListener('click', () => {
-                const confirmationDetails = document.getElementById('confirmationDetails');
-                confirmationDetails.innerHTML = `
-                    <div class="mb-3">
-                        <strong>Room:</strong> ${selectedRoom.name}<br>
-                        <strong>Date:</strong> ${selectedDate.toLocaleDateString()}<br>
-                        <strong>Time:</strong> ${selectedTime}<br>
-                        <strong>Capacity:</strong> ${selectedRoom.capacity} ${selectedRoom.capacity > 1 ? 'people' : 'person'}
-                    </div>
-                    <div class="alert alert-success">
-                        Your room has been successfully reserved!
-                    </div>
-                `;
-                
-                new bootstrap.Modal(document.getElementById('confirmationModal')).show();
+          // Handle booking
+          document.getElementById('bookButton').addEventListener('click', () => {
+              // Check if all details are selected
+              if (!selectedRoom || !selectedDate || !selectedTime) {
+                  // Create and show an alert modal
+                  const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+                  const alertBody = document.getElementById('alertModalBody');
+                  
+                  let missingDetails = [];
+                  if (!selectedRoom) missingDetails.push('Room');
+                  if (!selectedDate) missingDetails.push('Date');
+                  if (!selectedTime) missingDetails.push('Time');
 
-                // Mark room as booked
-                const roomElement = document.getElementById(selectedRoom.id);
-                roomElement.classList.add('booked');
-                roomElement.textContent = 'Booked';
-            });
+                  alertBody.innerHTML = `
+                      <div class="alert alert-warning">
+                          <strong>Booking Incomplete!</strong><br>
+                          Please select the following: ${missingDetails.join(', ')}
+                      </div>
+                  `;
+                  
+                  alertModal.show();
+                  return;
+              }
 
-            // Generate initial time slots
-            generateTimeSlots();
-        });
+              const confirmationDetails = document.getElementById('confirmationDetails');
+              confirmationDetails.innerHTML = `
+                  <div class="mb-3">
+                      <strong>Room:</strong> ${selectedRoom.name}<br>
+                      <strong>Date:</strong> ${selectedDate.toLocaleDateString()}<br>
+                      <strong>Time:</strong> ${selectedTime}<br>
+                      <strong>Capacity:</strong> ${selectedRoom.capacity} ${selectedRoom.capacity > 1 ? 'people' : 'person'}
+                  </div>
+                  <div class="alert alert-success">
+                      Your room has been successfully reserved!
+                  </div>
+              `;
+              
+              new bootstrap.Modal(document.getElementById('confirmationModal')).show();
+
+              // Mark room as booked
+              const roomElement = document.getElementById(selectedRoom.id);
+              roomElement.classList.remove('selected');
+              roomElement.classList.add('booked');
+              roomElement.textContent = 'Booked';
+              roomElement.style.pointerEvents = 'none';
+
+              // Reset selection
+              selectedRoom = null;
+              selectedTime = null;
+              updateRoomInfo();
+              generateTimeSlots();
+              updateBookButton();
+          });
+
+          // Generate initial time slots
+          generateTimeSlots();
+      });
     </script>
 </body>
 </html>
