@@ -1,261 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search - Library</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css"
+    />
     <style>
-        body {
-            background-color: thistle;
-        }
+      body {
+        background-color: thistle;
+      }
 
-        .nav-pills .nav-link.active {
-            background-color: rgb(222, 161, 222);
-        }
+      .nav-pills .nav-link.active {
+        background-color: rgb(222, 161, 222);
+      }
 
-        .form-container {
-            max-width: 500px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+      .form-container {
+        max-width: 500px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        .social-signup {
-            border-top: 1px solid #dee2e6;
-            margin-top: 2rem;
-            padding-top: 2rem;
-        }
+      .social-signup {
+        border-top: 1px solid #dee2e6;
+        margin-top: 2rem;
+        padding-top: 2rem;
+      }
 
-        .social-btn {
-            width: 200px;
-            margin: 0.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
+      .social-btn {
+        width: 200px;
+        margin: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
 
-        .password-field {
-            position: relative;
-        }
+      .password-field {
+        position: relative;
+      }
 
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: none;
-            color: #6c757d;
-        }
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: none;
+        color: #6c757d;
+      }
 
-        .bi-question-circle {
-            display: block;
-        }
+      .bi-question-circle {
+        display: block;
+      }
 
-        .cover {
-            width: 100px;
-        }
+      .cover {
+        width: 100px;
+      }
+
+      .loading {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .loading img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .book {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .book img {
+    max-width: 100px;
+    max-height: 150px;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+
+  .book-info {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .book-info h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  .book-info p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .book button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .book button:hover {
+    background-color: #0056b3;
+  }
+
+  .search_results {
+    font-family: Arial, sans-serif;
+  }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">
-                <img src="\assets\icon.png" width="30" height="30" alt="library icon with book inside">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="roomreservation.html">Rooms</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="services.html">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="search.html">Search</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img
+            src="\assets\icon.png"
+            width="30"
+            height="30"
+            alt="library icon with book inside"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="roomreservation.html">Rooms</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="services.html">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="search.html">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="container">
-        
-        <div class="input-group">
-            <input id = searchInput type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                aria-describedby="search-addon" />
-            <button id = searchButton type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
-        </div>
+      <div class="input-group">
+        <input
+          id="searchInput"
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+        <button
+          id="searchButton"
+          type="button"
+          class="btn btn-outline-primary"
+          data-mdb-ripple-init
+        >
+          search
+        </button>
+      </div>
 
-        <!-- Tabs navs -->
-        <ul class="nav nav-tabs mb-3" id="tabNav" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab-1" data-bs-toggle="tab" href="#tabs-1" role="tab"
-                    aria-controls="tabs-1" aria-selected="true">Books</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab-2" data-bs-toggle="tab" href="#tabs-2" role="tab" aria-controls="tabs-2"
-                    aria-selected="false">Authors</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab-3" data-bs-toggle="tab" href="#tabs-3" role="tab" aria-controls="tabs-3"
-                    aria-selected="false">Database Resources</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab-4" data-bs-toggle="tab" href="#tabs-4" role="tab" aria-controls="tabs-4"
-                    aria-selected="false">Misc</a>
-            </li>
-        </ul>
-        <!-- Tabs navs -->
+      <!-- Tabs navs -->
+      <ul class="nav nav-tabs mb-3" id="tabNav" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="tab-1"
+            data-bs-toggle="tab"
+            href="#tabs-1"
+            role="tab"
+            aria-controls="tabs-1"
+            aria-selected="true"
+            >Books</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="tab-2"
+            data-bs-toggle="tab"
+            href="#tabs-2"
+            role="tab"
+            aria-controls="tabs-2"
+            aria-selected="false"
+            >Authors</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="tab-3"
+            data-bs-toggle="tab"
+            href="#tabs-3"
+            role="tab"
+            aria-controls="tabs-3"
+            aria-selected="false"
+            >Database Resources</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="tab-4"
+            data-bs-toggle="tab"
+            href="#tabs-4"
+            role="tab"
+            aria-controls="tabs-4"
+            aria-selected="false"
+            >Misc</a
+          >
+        </li>
+      </ul>
+      <!-- Tabs navs -->
 
-        <!-- Tabs content -->
-        <div class="tab-content" id="tabContent">
-            <div class="tab-pane fade show active" id="tabs-1" role="tabpanel" aria-labelledby="tab-1">
-                <div class="search_results">
-                    <div class="hunger-games">
-                        <img class="cover" src="\assets\hungerGames.jpg" alt="The Hunger Games Cover">
-                        <h1>The Hunger Games</h1>
-                        <p>
-                            "In a dystopian future, the annual Hunger Games are a televised event where the government
-                            of Panem
-                            forces teenagers to fight to the death as punishment for rebellion."
-                        </p>
-                        <p class="author">- Author: Suzanne Collins</p>
-                        <div class="button-container">
-                            <a href="booklocator.html">Book Locator</a>
-                        </div>
-                    </div>
-                </div>
+      <!-- Tabs content -->
+      <div class="tab-content" id="tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="tabs-1"
+          role="tabpanel"
+          aria-labelledby="tab-1"
+        >
+          <div class="search_results">
+            <div class="loading" id="loading-indicator">
+              <img src="../assets/loading.gif" alt="Loading..." />
             </div>
-            <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="tab-2">
-                Author Results
-            </div>
-            <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="tab-3">
-                Database Resources
-            </div>
-            <div class="tab-pane fade" id="tabs-4" role="tabpanel" aria-labelledby="tab-4">
-                Misc Results
-            </div>
+          </div>
         </div>
-        
-        <!-- Tabs content -->
+        <div
+          class="tab-pane fade"
+          id="tabs-2"
+          role="tabpanel"
+          aria-labelledby="tab-2"
+        >
+          Author Results
+        </div>
+        <div
+          class="tab-pane fade"
+          id="tabs-3"
+          role="tabpanel"
+          aria-labelledby="tab-3"
+        >
+          Database Resources
+        </div>
+        <div
+          class="tab-pane fade"
+          id="tabs-4"
+          role="tabpanel"
+          aria-labelledby="tab-4"
+        >
+          Misc Results
+        </div>
+      </div>
+
+      <!-- Tabs content -->
     </main>
     <script>
-        
-        const searchInput = document.getElementById("searchInput")
-        const searchButton = document.getElementById("searchButton")
+      const searchInput = document.getElementById("searchInput");
+      const searchButton = document.getElementById("searchButton");
 
-        const resultsDiv = document.querySelector(".search_results");
-        // Extract the search query from the URL
-        const params = new URLSearchParams(window.location.search);
-        const firstQuery = params.get('q');
-        function getBooks(query){
+      const resultsDiv = document.querySelector(".search_results");
+      // Extract the search query from the URL
+      const params = new URLSearchParams(window.location.search);
+      const firstQuery = params.get("q");
+      function getBooks(query) {
         if (!query) {
-            resultsDiv.innerHTML = '<p style="color: red;">No search term provided.</p>';
-            } else {
-                // Fetch results from the server using the query
-                fetch(`http://localhost:5001/api/search?q=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Search Completed ", data)
-                        const books = data.docs.slice(0, 10); // Limit to 10 results
-                        resultsDiv.innerHTML = books.map(book => {
-                        // Generate the cover URL (you can adjust the size as needed)
-                            const coverUrl = book.isbn ? 
-                            `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-S.jpg` : 
-                            book.cover_edition_key ? 
-                            `https://covers.openlibrary.org/b/id/${book.cover_edition_key}-S.jpg` :
-                            '';
-                            const genreList = book.subject ? book.subject : [];
-                            console.log(genreList)
-                            let foundGenre = null;
-                            const genres = [
-                            "fantasy",//
-                            "horror",//
-                            "literature",//
-                            "science fiction",//
-                            "thriller",//
-                            "romance",//
-                            "plays",//
-                            "mystery",//
-                            "architecture",
-                            "mathematics",//
-                            "biology",//
-                            "physics",//
-                            "programming",//
-                            "religion",
-                            "history",
-                            "kids books",//
-                            "fiction",//
-                            "young adult"//
-                        ];
+          resultsDiv.innerHTML =
+            '<p style="color: red;">No search term provided.</p>';
+        } else {
+          // Fetch results from the server using the query
+          fetch(
+            `http://localhost:5001/api/search?q=${encodeURIComponent(query)}`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Search Completed ", data);
+              const books = data.docs.slice(0, 10); // Limit to 10 results
+              resultsDiv.innerHTML = books
+                .map((book) => {
+                  // Generate the cover URL (you can adjust the size as needed)
+                  const coverUrl = book.isbn
+                    ? `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-M.jpg`
+                    : book.cover_edition_key
+                    ? `https://covers.openlibrary.org/b/id/${book.cover_edition_key}-M.jpg`
+                    : "";
+                  const genreList = book.subject ? book.subject : [];
+                  console.log(genreList);
+                  let foundGenre = null;
+                  const genres = [
+                    "fantasy", //
+                    "horror", //
+                    "literature", //
+                    "science fiction", //
+                    "thriller", //
+                    "romance", //
+                    "plays", //
+                    "mystery", //
+                    "architecture",
+                    "mathematics", //
+                    "biology", //
+                    "physics", //
+                    "programming", //
+                    "religion",
+                    "history",
+                    "kids books", //
+                    "fiction", //
+                    "young adult", //
+                  ];
 
-                        // Function to find the first shared genre
-                        
-                        for (let genre of genreList) {
-                            if (genres.includes(genre.toLowerCase())) {
-                                foundGenre = genre.toLowerCase(); // Return the first shared genre
-                                break;
-                            }
-                        }
-                        
-                        // Return null if no shared genre is found
-                    
-                        console.log(foundGenre)
-                        
-                        const canLocate = foundGenre ? "Locate " : "Not Avaliable"
-                        return`
-                            <div class="book">
-                                <h3>${book.title}</h3>
-                                <p>Author: ${book.author_name ? book.author_name.join(', ') : 'Unknown'}</p>
-                                <p>First Published: ${book.first_publish_year || 'Unknown'}</p>
-                                <button onclick="location.href = 'booklocator.html?q=${encodeURIComponent(foundGenre)}';" class="btn btn-outline-primary" >${canLocate}</button>
-                                ${coverUrl ? `<img src="${coverUrl}" alt="Book Cover" />` : ''}
-                            </div>
-                        `}).join('');
-                    })
-                    .catch(error => {
-                        console.error('Error fetching books:', error);
-                        resultsDiv.innerHTML = '<p style="color: red;">Failed to fetch books. Please try again later.</p>';
-                    });
-            }
+                  // Function to find the first shared genre
+
+                  for (let genre of genreList) {
+                    if (genres.includes(genre.toLowerCase())) {
+                      foundGenre = genre.toLowerCase(); // Return the first shared genre
+                      break;
+                    }
+                  }
+
+                  console.log(foundGenre);
+
+                  const canLocate = foundGenre ? "Locate " : "Not Avaliable";
+                  //Robbie this is the html for each of the titles
+                  return `
+        <div class="book">
+            <img src="${
+              coverUrl || "placeholder-image-url.jpg"
+            }" alt="Book Cover" />
+            <div class="book-info">
+                <h3>${book.title}</h3>
+                <p>Author: ${
+                  book.author_name ? book.author_name.join(", ") : "Unknown"
+                }</p>
+                <p>First Published: ${book.first_publish_year || "Unknown"}</p>
+            </div>
+            <button onclick="location.href = 'booklocator.html?q=${encodeURIComponent(
+              foundGenre
+            )}';">${canLocate}</button>
+        </div>
+    `;
+                })
+                .join("");
+            })
+            .catch((error) => {
+              console.error("Error fetching books:", error);
+              resultsDiv.innerHTML =
+                '<p style="color: red;">Failed to fetch books. Please try again later.</p>';
+            });
         }
-        getBooks(firstQuery);
+      }
+      getBooks(firstQuery);
 
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (!query) {
-                alert('Please enter a search term.');
-                return;
-            }
-            // Redirect to results.html with the search query as a URL parameter
-            getBooks(query)
-        })
-
-    </script>
+      searchButton.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (!query) {
+          alert("Please enter a search term.");
+          return;
+        }
+        // Redirect to results.html with the search query as a URL parameter
+        getBooks(query);
+      });
     </script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+  </body>
 </html>

@@ -439,6 +439,8 @@
         Kids Books
         
         */
+
+      
       const params = new URLSearchParams(window.location.search);
       const firstQuery = params.get('q');
       
@@ -449,14 +451,10 @@
       console.log("Book Locator", firstQuery.toLowerCase().trim())
 
       function selectShelf(subjectName){
-        let selectedShelf = document.getElementById(firstQuery.toLowerCase().trim());
-        if(selectedShelf){
-          console.log("Not Null ")
-        }else{
-          console.log("Shit is null my guy")
-        }
-        selectedShelf.classList.add("selected");
-
+      let selectedShelf = document.getElementById(firstQuery.toLowerCase().trim());
+        
+      selectedShelf.classList.add("selected");
+        
         document.getElementById(
           "shelf-info"
         ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
