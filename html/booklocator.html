@@ -442,13 +442,20 @@
       const params = new URLSearchParams(window.location.search);
       const firstQuery = params.get('q');
       
+      console.log("Attempting to look for a book",firstQuery);
       
-      let selectedShelf = document.getElementById(firstQuery.toLowerCase);
-      selectShelf(selectedShelf);
-      
-      console.log("Book Locator", firstQuery)
-      function selectShelf(shelf){
-        shelf.classList.add("selected");
+      selectShelf(firstQuery.toLowerCase().trim());
+
+      console.log("Book Locator", firstQuery.toLowerCase().trim())
+
+      function selectShelf(subjectName){
+        let selectedShelf = document.getElementById(firstQuery.toLowerCase().trim());
+        if(selectedShelf){
+          console.log("Not Null ")
+        }else{
+          console.log("Shit is null my guy")
+        }
+        selectedShelf.classList.add("selected");
 
         document.getElementById(
           "shelf-info"

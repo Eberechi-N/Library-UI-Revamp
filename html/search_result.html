@@ -188,7 +188,7 @@
                             '';
                             const genreList = book.subject ? book.subject : [];
                             console.log(genreList)
-                            let foundGenre = "Not Located"
+                            let foundGenre = null;
                             const genres = [
                             "fantasy",//
                             "horror",//
@@ -218,11 +218,12 @@
                                 break;
                             }
                         }
+                        
                         // Return null if no shared genre is found
                     
                         console.log(foundGenre)
                         
-                        const canLocate = book.subject ? "Locate " : "Not Avaliable"
+                        const canLocate = foundGenre ? "Locate " : "Not Avaliable"
                         return`
                             <div class="book">
                                 <h3>${book.title}</h3>
