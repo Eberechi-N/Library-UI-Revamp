@@ -391,7 +391,7 @@
           </div>
         </div>
       </div>
-      <!-- Book Covers -->
+      <!--Trending Books  -->
       <div class="row mt-4 text-center books">
         <h2>Books on your list</h2>
         <div class="col-3">
@@ -454,7 +454,7 @@
       let selectedShelf = document.getElementById(firstQuery.toLowerCase().trim());
         
       selectedShelf.classList.add("selected");
-        
+
         document.getElementById(
           "shelf-info"
         ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;

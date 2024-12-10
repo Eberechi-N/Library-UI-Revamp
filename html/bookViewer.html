@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Your Title</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden; /* Remove scrollbars */
+      }
+
+      canvas {
+        display: block; /* Ensures the canvas fills the window */
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      // Your JavaScript code (provided in the previous example) goes here.
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      // Scene, Camera, Renderer
+      const scene = new THREE.Scene();
+      // Create a texture loader
+      const textureLoader = new THREE.TextureLoader();
+
+      // Load the background image
+      const backgroundTexture = textureLoader.load("../assets/bookSpines.jpg"); // Replace with your image URL
+
+      // Set the texture as the scene background
+      scene.background = backgroundTexture;
+
+      // Create a camera
+      const camera = new THREE.PerspectiveCamera(
+        75, // Field of view
+        window.innerWidth / window.innerHeight, // Aspect ratio
+        0.1, // Near clipping plane
+        1000 // Far clipping plane
+      );
+      
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      //Orbit Controls
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+
+      // Add Light
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(10, 10, 10).normalize();
+      scene.add(light);
+
+      // Create BoxGeometry
+      const geometry = new THREE.BoxGeometry(5.5, 8.25, 2.5);
+
+      // Load Image as Texture
+      const imageTexture = textureLoader.load("../assets/artOfDesign.jpg"); // Replace with your image URL
+      const sidepages = textureLoader.load("../assets/BookViewer/pages.jpeg");
+      const toppages = textureLoader.load("../assets/BookViewer/pagestop&bot.jpeg");
+      const sideTexture = textureLoader.load("../assets/BookViewer/bookTexture.jpg")
+      // Create a Canvas Texture for Text
+      // Create a Canvas Texture for Text
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext("2d");
+
+      // Background
+      ctx.fillStyle = "#4b2d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Text Styling
+      ctx.fillStyle = "white";
+      ctx.font = "30px Arial"; // Reduced font size
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+
+      // Wrapping the text
+      const text =
+        "The studio was filled with the rich odour of roses, and when the light summer wind stirred amidst the trees of the garden there came through the open door the heavy scent of the lilac, or the more delicate perfume of the pink-flowering thorn.";
+      const lineHeight = 40; // Height between lines
+      const maxWidth = canvas.width - 20; // Leave some padding on the edges
+      let x = 10; // Padding from the left
+      let y = 10; // Padding from the top
+
+      function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const words = text.split(" ");
+        let line = "";
+
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + " ";
+          const testWidth = context.measureText(testLine).width;
+
+          if (testWidth > maxWidth && i > 0) {
+            context.fillText(line, x, y);
+            line = words[i] + " ";
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        context.fillText(line, x, y);
+      }
+
+      wrapText(ctx, text, x, y, maxWidth, lineHeight);
+
+      // Create a texture from the canvas
+      const textTexture = new THREE.CanvasTexture(canvas);
+      const materials = [
+        new THREE.MeshBasicMaterial({ map: sidepages }), // Right face with image
+        new THREE.MeshBasicMaterial({ map: sideTexture }), // Left face with solid color
+        new THREE.MeshBasicMaterial({ map: toppages }), // Top face with text
+        new THREE.MeshBasicMaterial({ map: toppages }), // Bottom face
+        new THREE.MeshBasicMaterial({ map: imageTexture }), // Front face
+        new THREE.MeshBasicMaterial({ map: textTexture }), // Back face
+      ];
+
+      // Create Mesh
+      const cube = new THREE.Mesh(geometry, materials);
+      scene.add(cube);
+
+      // Position Camera
+      camera.position.z = 10;
+      controls.update();
+      // Animation Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      function pagesToInches(pages) {
+        const pagesPerInch = 175;
+        const inches = pages / pagesPerInch;
+        return inches.toFixed(2); // Round to two decimal places
+      }
+    </script>
+  </body>
+</html>
