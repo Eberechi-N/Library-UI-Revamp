@@ -11,15 +11,14 @@
     />
     <style>
       body {
-            background-color: thistle;
+        background-color: thistle;
       }
       .nav-pills .nav-link.active {
-          background-color: rgb(222, 161, 222);
+        background-color: rgb(222, 161, 222);
       }
-      .books{
+      .books {
         background-color: rgb(222, 161, 222);
         border-radius: 15px;
-
       }
       #floorplan {
         position: relative;
@@ -38,15 +37,14 @@
         font-size: 14px;
         text-align: center;
         border-radius: 5px;
-        
       }
       .shelf:hover {
         transform: scale(1.05);
       }
       .shelf.selected {
-        background-color:  rgb(222, 161, 222) !important;
+        background-color: rgb(222, 161, 222) !important;
       }
-      
+
       #info-box {
         background-color: #f8f9fa;
         border: 1px solid #ddd;
@@ -81,13 +79,28 @@
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../assets/icon.png" width="30" height="30" alt="library icon with book inside">
+          <img
+            src="../assets/icon.png"
+            width="30"
+            height="30"
+            alt="library icon with book inside"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
           <ul class="navbar-nav nav-pills">
             <li class="nav-item">
               <a class="nav-link active" href="index.html">Home</a>
@@ -123,7 +136,7 @@
                 left: 5px;
                 width: 30px;
                 height: 160px;
-                background-color: #ffffff;  
+                background-color: #ffffff;
                 writing-mode: vertical-rl;
               "
             >
@@ -139,7 +152,7 @@
                 width: 30px;
                 height: 160px;
                 background-color: #ffffff;
-                writing-mode: vertical-rl;    
+                writing-mode: vertical-rl;
               "
             >
               Religion
@@ -153,8 +166,8 @@
                 left: 5px;
                 width: 30px;
                 height: 160px;
-                background-color: #ffffff;    
-                writing-mode: vertical-rl; 
+                background-color: #ffffff;
+                writing-mode: vertical-rl;
               "
             >
               History
@@ -201,7 +214,7 @@
                 background-color: #ffffff;
               "
             >
-            Kids Books
+              Kids Books
             </div>
             <div
               class="shelf"
@@ -216,7 +229,6 @@
             >
               Fantasy
             </div>
-            
 
             <!-- Top ROW 1 -->
             <div
@@ -326,74 +338,72 @@
               Mystery
             </div>
 
-             <!-- Last ROW 3 -->
-             <div
-             class="shelf"
-             id="horror"
-             style="
-               top: 305px;
-               left: 95px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Horror
-           </div>
-           <div
-             class="shelf"
-             id="science fiction"
-             style="
-               top: 305px;
-               left: 262px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Science Fiction
-           </div>
-           <div
-             class="shelf"
-             id="romance"
-             style="
-               top: 305px;
-               left: 430px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Romance
-           </div>
-           <div
-             class="shelf"
-             id="thriller"
-             style="
-               top: 305px;
-               left: 597px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Thriller
-           </div>
+            <!-- Last ROW 3 -->
+            <div
+              class="shelf"
+              id="horror"
+              style="
+                top: 305px;
+                left: 95px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Horror
+            </div>
+            <div
+              class="shelf"
+              id="science fiction"
+              style="
+                top: 305px;
+                left: 262px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Science Fiction
+            </div>
+            <div
+              class="shelf"
+              id="romance"
+              style="
+                top: 305px;
+                left: 430px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Romance
+            </div>
+            <div
+              class="shelf"
+              id="thriller"
+              style="
+                top: 305px;
+                left: 597px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Thriller
+            </div>
           </div>
         </div>
         <!-- Information Box -->
         <div class="col-md-4">
           <div id="info-box">
             <h5>Book Information</h5>
-            <p id="shelf-info">
-              Click on a shelf or book cover to view details.
-            </p>
+            <p id="shelf-info"></p>
           </div>
         </div>
       </div>
       <!--Trending Books  -->
       <div class="row mt-4 text-center books">
-        <h2>Books on your list</h2>
+        <h2>Locate Popular Titles</h2>
         <div class="col-3">
           <div class="book-cover" id="book1">
             <img src="\assets\hungerGames.jpg" alt="Hunger Games Cover" />
@@ -401,7 +411,10 @@
         </div>
         <div class="col-3">
           <div class="book-cover" id="book2">
-            <img src="\assets\physicsTb.jpg" alt="Physics for Beginners Cover" />
+            <img
+              src="\assets\physicsTb.jpg"
+              alt="Physics for Beginners Cover"
+            />
           </div>
         </div>
         <div class="col-3">
@@ -411,7 +424,10 @@
         </div>
         <div class="col-3">
           <div class="book-cover" id="book4">
-            <img src="\assets\BriefHistoryTime.jpg" alt="A Brief History of Time Cover" />
+            <img
+              src="\assets\BriefHistoryTime.jpg"
+              alt="A Brief History of Time Cover"
+            />
           </div>
         </div>
       </div>
@@ -439,32 +455,46 @@
         Kids Books
         
         */
+      let author = sessionStorage.getItem("author");
+      let title = sessionStorage.getItem("title");
+      let cover = sessionStorage.getItem("cover");
+      let genre = sessionStorage.getItem("genre");
 
+      //Book Information Display
+      let shelfInfo = document.getElementById("shelf-info");
+
+      if (title && author && cover && genre) {
+        shelfInfo.innerHTML = `
+        <div style="display: flex; align-items: flex-start; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; max-width: 600px; background-color: #f9f9f9;">
+            <img src="${cover}" alt="Book Cover" style="width: 120px; height: auto; border-radius: 4px;">
+            <div>
+                <h5 style="margin: 0; font-size: 1.25rem; color: #333;">${title}</h5>
+                <p style="margin: 5px 0; font-size: 1rem; color: #555;">by <strong>${author}</strong></p>
+                <p style="margin: 5px 0; font-size: 0.95rem; color: #666;"><em>Genre:</em> ${genre}</p>
+            </div>
+        </div>
+    `;
+      } else {
+        shelfInfo.innerHTML = `<p style="color: #888;">No book information available.</p>`;
+      }
       
-      const params = new URLSearchParams(window.location.search);
-      const firstQuery = params.get('q');
-      
-      console.log("Attempting to look for a book",firstQuery);
-      
-      selectShelf(firstQuery.toLowerCase().trim());
 
-      console.log("Book Locator", firstQuery.toLowerCase().trim())
+      selectShelf(genre.toLowerCase().trim());
 
-      function selectShelf(subjectName){
-      let selectedShelf = document.getElementById(firstQuery.toLowerCase().trim());
-        
-      selectedShelf.classList.add("selected");
+      console.log("Book Locator", genre.toLowerCase().trim());
 
-        document.getElementById(
-          "shelf-info"
-        ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
+      function selectShelf(subjectName) {
+        let selectedShelf = document.getElementById(
+          genre.toLowerCase().trim()
+        );
+
+        selectedShelf.classList.add("selected");
       }
 
       function resetShelves() {
         document.querySelectorAll(".shelf").forEach((shelf) => {
           shelf.style.backgroundColor = "#ffffff";
           shelf.classList.remove("selected");
-
         });
       }
 
@@ -477,12 +507,11 @@
 
       document.querySelectorAll(".book-cover").forEach((book) => {
         book.addEventListener("click", () => {
-          const bookDetails = bookInfo[book.id]; 
+          const bookDetails = bookInfo[book.id];
           if (bookDetails) {
             resetShelves();
             const shelf = document.getElementById(bookDetails.shelf);
             selectShelf(shelf);
-            
           }
         });
       });
