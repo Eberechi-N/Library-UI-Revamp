@@ -141,7 +141,7 @@
                 </div>
 
                 <div class="mb-3 d-flex align-items-center gap-3">
-                    <button type="submit" class="btn btn-primary" onclick="window.location.href='/html/home_user.html'">Sign up</button>
+                    <button type="submit" class="btn btn-primary" >Sign up</button>
                     <a href="#" class="text-primary text-decoration-none">Learn more</a>
                 </div>
 
@@ -194,6 +194,57 @@
                 }, false)
             })
         })()
+
+    document.getElementById('signupForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Sign-up successful!');
+                window.location.href = '../index.html'; // Redirect on success
+            } else {
+                alert(`Error: ${result.error}`);
+            }
+        } catch (error) {
+            console.error('Error during sign-up:', error);
+            alert('Error during sign-up. Please try again later.');
+        }
+    });
+
+        app.post('/signup', async (req, res) => {
+        console.log('Received request:', req.body); // Log incoming request data
+        const { name, email, password } = req.body;
+
+        try {
+            const newUser = new User({ name, email, password });
+            await newUser.save();
+            res.status(201).json({ message: 'User registered successfully' });
+        } catch (err) {
+            console.error('Error saving user:', err);
+            res.status(500).json({ error: 'Error registering user' });
+        }
+        });
+
+
+
     </script>
 </body>
 </html>
+
