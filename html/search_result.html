@@ -388,9 +388,10 @@
                 }</p>
                 <p>First Published: ${book.first_publish_year || "Unknown"}</p>
             </div>
-            <button onclick="handleLocateOnClick('${book.title}', '${book.author_name}','${foundGenre}', '${coverUrl}', 'booklocator.html')"> ${canLocate}</button>
+            <button onclick= "handleLocateOnClick('${book.title}', '${book.author_name}','${foundGenre}', '${coverUrl}')"> ${canLocate}</button>
 
-            <button> View Detail </button>
+            <button onclick="handleViewOnClick('${book.first_sentence}', '${coverUrl}', ${book.number_of_pages_median
+})"> View Detail </button>
         </div>
     `;
                 })
@@ -425,9 +426,10 @@
         location.href = "booklocator.html"
       }
 
-      function handleViewOnClick(first_sentence, coverUrl){
+      function handleViewOnClick(first_sentence, coverUrl, pages){
         sessionStorage.setItem("first_sentence", first_sentence);
         sessionStorage.setItem("cover", coverUrl);
+        sessionStorage.setItem("pages", pages);
         location.href = "bookViewer.html"
       }
     </script>

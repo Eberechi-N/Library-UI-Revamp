@@ -25,73 +25,72 @@
   </head>
   <body>
     <script type="module">
-      // Your JavaScript code (provided in the previous example) goes here.
       import * as THREE from "three";
       import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-      // Scene, Camera, Renderer
+
+      //Session Data from Books
+      let cover = sessionStorage.getItem("cover");
+      let sentence = sessionStorage.getItem("first_sentence");
+      let pageCount = sessionStorage.getItem("pages");
+
+      //Three JS Scene Stuff
       const scene = new THREE.Scene();
-      // Create a texture loader
       const textureLoader = new THREE.TextureLoader();
-
-      // Load the background image
-      const backgroundTexture = textureLoader.load("../assets/bookSpines.jpg"); // Replace with your image URL
-
-      // Set the texture as the scene background
-      scene.background = backgroundTexture;
-
-      // Create a camera
       const camera = new THREE.PerspectiveCamera(
         75, // Field of view
         window.innerWidth / window.innerHeight, // Aspect ratio
         0.1, // Near clipping plane
         1000 // Far clipping plane
       );
-      
-
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
-      //Orbit Controls
 
-      const controls = new OrbitControls(camera, renderer.domElement);
-
-      // Add Light
+      //Light
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(10, 10, 10).normalize();
       scene.add(light);
 
-      // Create BoxGeometry
-      const geometry = new THREE.BoxGeometry(5.5, 8.25, 2.5);
+      //Library background
+      const backgroundTexture = textureLoader.load("../assets/bookSpines.jpg"); // Replace with your image URL
+      scene.background = backgroundTexture;
 
-      // Load Image as Texture
-      const imageTexture = textureLoader.load("../assets/artOfDesign.jpg"); // Replace with your image URL
+      //Orbit Controls
+      const controls = new OrbitControls(camera, renderer.domElement);
+
+      //This is how we estimate the size of the book using pages
+      const pageSize = pagesToInches(pageCount);
+
+      //The Book Structure itself Inches
+      const geometry = new THREE.BoxGeometry(5.5, 8.25, pageSize);
+      
+      //Images around book
+      const imageTexture = textureLoader.load(cover); // Replace with your image URL
       const sidepages = textureLoader.load("../assets/BookViewer/pages.jpeg");
       const toppages = textureLoader.load("../assets/BookViewer/pagestop&bot.jpeg");
       const sideTexture = textureLoader.load("../assets/BookViewer/bookTexture.jpg")
-      // Create a Canvas Texture for Text
-      // Create a Canvas Texture for Text
+      
+      //First Sentence on Back
       const canvas = document.createElement("canvas");
       canvas.width = 512;
       canvas.height = 512;
       const ctx = canvas.getContext("2d");
 
-      // Background
       ctx.fillStyle = "#4b2d22";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Text Styling
       ctx.fillStyle = "white";
       ctx.font = "30px Arial"; // Reduced font size
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
 
-      // Wrapping the text
-      const text =
-        "The studio was filled with the rich odour of roses, and when the light summer wind stirred amidst the trees of the garden there came through the open door the heavy scent of the lilac, or the more delicate perfume of the pink-flowering thorn.";
-      const lineHeight = 40; // Height between lines
-      const maxWidth = canvas.width - 20; // Leave some padding on the edges
-      let x = 10; // Padding from the left
-      let y = 10; // Padding from the top
+      const text = sentence; //First Sentence of Novel
+
+      //Text Spacing & wrapping
+      const lineHeight = 40; 
+      const maxWidth = canvas.width - 20;
+      let x = 10; 
+      let y = 10; 
 
       function wrapText(context, text, x, y, maxWidth, lineHeight) {
         const words = text.split(" ");
@@ -114,7 +113,7 @@
 
       wrapText(ctx, text, x, y, maxWidth, lineHeight);
 
-      // Create a texture from the canvas
+      // Create a textures from the canvas (Cover, and Book Sides)
       const textTexture = new THREE.CanvasTexture(canvas);
       const materials = [
         new THREE.MeshBasicMaterial({ map: sidepages }), // Right face with image
@@ -125,13 +124,14 @@
         new THREE.MeshBasicMaterial({ map: textTexture }), // Back face
       ];
 
-      // Create Mesh
+  
       const cube = new THREE.Mesh(geometry, materials);
       scene.add(cube);
 
       // Position Camera
       camera.position.z = 10;
       controls.update();
+
       // Animation Loop
       function animate() {
         requestAnimationFrame(animate);
@@ -143,7 +143,7 @@
       function pagesToInches(pages) {
         const pagesPerInch = 175;
         const inches = pages / pagesPerInch;
-        return inches.toFixed(2); // Round to two decimal places
+        return inches.toFixed(2); 
       }
     </script>
   </body>
