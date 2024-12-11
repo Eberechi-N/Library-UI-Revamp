@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="mb-3 d-flex align-items-center gap-3">
-                    <button type="submit" class="btn btn-primary" onclick="window.location.href='../index.html' ">Login</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
                     <a href="#" class="text-primary text-decoration-none">Forgot Password?</a>
                 </div>
 
@@ -154,13 +154,41 @@
                     if (!form.checkValidity()) {
                         event.preventDefault()
                         event.stopPropagation()
-                    }
-                    alert('Login successful!');
-                    
+                    }                    
                     form.classList.add('was-validated')
                 }, false)
             })
         })()
+
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Store the username in sessionStorage for use in logged.html
+                sessionStorage.setItem('username', result.username);
+                // Redirect to logged.html
+                window.location.href = 'logged.html';
+            } else {
+                alert(`Error: ${result.error}`);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Error during login. Please try again later.');
+        }
+    });
+
     </script>
 </body>
 </html>
