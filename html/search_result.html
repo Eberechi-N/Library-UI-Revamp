@@ -374,7 +374,10 @@
 
                   console.log(foundGenre);
 
-                  const canLocate = foundGenre ? "Locate " : "Not Avaliable";
+                  const canLocate = foundGenre ? "Locate" : "Not Avaliable";
+                  const canView = book.first_sentence
+                    ? "3D View"
+                    : "View Unavaliable";
                   //Robbie this is the html for each of the titles
                   return `
         <div class="book">
@@ -388,11 +391,21 @@
                 }</p>
                 <p>First Published: ${book.first_publish_year || "Unknown"}</p>
             </div>
-            <button onclick= "handleLocateOnClick('${book.title}', '${book.author_name}','${foundGenre}', '${coverUrl}')"> ${canLocate}</button>
+            <button onclick= "handleLocateOnClick('${book.title.replace(
+              /'/g,
+              "\\'"
+            )}', '${
+                    book.author_name
+                  }','${foundGenre}', '${coverUrl}')"> ${canLocate}</button>
 
-            <button onclick="handleViewOnClick('${book.first_sentence}', '${coverUrl}', ${book.number_of_pages_median
-})"> View Detail </button>
-        </div>
+<button onclick="handleViewOnClick('${
+                    book.first_sentence
+                      ? book.first_sentence[0].replace(/'/g, "\\'")
+                      : ""
+                  }', '${coverUrl}', ${
+                    book.number_of_pages_median || 0
+                  })"> ${canView} </button>       
+ </div>
     `;
                 })
                 .join("");
@@ -415,22 +428,21 @@
         // Redirect to results.html with the search query as a URL parameter
         getBooks(query);
       });
-      
 
-      function handleLocateOnClick(title,author, foundGenre, coverUrl ){
+      function handleLocateOnClick(title, author, foundGenre, coverUrl) {
         //store book data in session storage
         sessionStorage.setItem("genre", foundGenre);
         sessionStorage.setItem("title", title);
         sessionStorage.setItem("author", author);
         sessionStorage.setItem("cover", coverUrl);
-        location.href = "booklocator.html"
+        location.href = "booklocator.html";
       }
 
-      function handleViewOnClick(first_sentence, coverUrl, pages){
+      function handleViewOnClick(first_sentence, coverUrl, pages) {
         sessionStorage.setItem("first_sentence", first_sentence);
         sessionStorage.setItem("cover", coverUrl);
         sessionStorage.setItem("pages", pages);
-        location.href = "bookViewer.html"
+        location.href = "bookViewer.html";
       }
     </script>
     <!-- Bootstrap JS -->

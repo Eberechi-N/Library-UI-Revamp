@@ -103,7 +103,7 @@
         >
           <ul class="navbar-nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link active" href="../index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="roomreservation.html">Rooms</a>
@@ -402,31 +402,70 @@
         </div>
       </div>
       <!--Trending Books  -->
-      <div class="row mt-4 text-center books">
+      <div class="row mt-5 text-center books">
         <h2>Locate Popular Titles</h2>
         <div class="col-3">
-          <div class="book-cover" id="book1">
-            <img src="\assets\hungerGames.jpg" alt="Hunger Games Cover" />
+          <div class="book-cover" id="1">
+            <img
+              src="../assets/TrendingTitles/physics.jpg"
+              alt="A Brief History of Time"
+            />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book2">
+          <div class="book-cover" id="2">
             <img
-              src="\assets\physicsTb.jpg"
+              src="../assets/TrendingTitles/play.jpg"
+              alt="Wicked: The Play"
               alt="Physics for Beginners Cover"
             />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book3">
-            <img src="\assets\artOfDesign.jpg" alt="The Art of Design Cover" />
+          <div class="book-cover" id="3">
+            <img
+              src="../assets/TrendingTitles/religion.jpg"
+              alt="The Holy Bible"
+            />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book4">
+          <div class="book-cover" id="4">
             <img
-              src="\assets\BriefHistoryTime.jpg"
-              alt="A Brief History of Time Cover"
+              src="../assets/TrendingTitles/romace.jpg"
+              alt="Its Ends with Us"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="5">
+            <img
+              src="../assets/TrendingTitles/sciencefiction.jpeg"
+              alt="A hitchhikers Guide to the Galaxy"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="6">
+            <img
+              src="../assets/TrendingTitles/horror.jpeg"
+              alt="It"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="7">
+            <img
+              src="../assets/TrendingTitles/kids.jpg"
+              alt="Green Eggs and Ham"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="8">
+            <img
+              src="../assets/TrendingTitles/programming.jpeg"
+              alt="Cracking the Coding Interview"
             />
           </div>
         </div>
@@ -437,6 +476,8 @@
 
     <script>
       /*
+
+        All Avaliable Genres
         Fantasy
         Horror
         Literature
@@ -466,7 +507,7 @@
       if (title && author && cover && genre) {
         shelfInfo.innerHTML = `
         <div style="display: flex; align-items: flex-start; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; max-width: 600px; background-color: #f9f9f9;">
-            <img src="${cover}" alt="Book Cover" style="width: 120px; height: auto; border-radius: 4px;">
+            <img class = "book-cover" id = 0 src="${cover}" alt="Book Cover" style="width: 120px; height: auto; border-radius: 4px;">
             <div>
                 <h5 style="margin: 0; font-size: 1.25rem; color: #333;">${title}</h5>
                 <p style="margin: 5px 0; font-size: 1rem; color: #555;">by <strong>${author}</strong></p>
@@ -477,22 +518,20 @@
       } else {
         shelfInfo.innerHTML = `<p style="color: #888;">No book information available.</p>`;
       }
-      
 
       selectShelf(genre.toLowerCase().trim());
 
       console.log("Book Locator", genre.toLowerCase().trim());
 
       function selectShelf(subjectName) {
-        let selectedShelf = document.getElementById(
-          genre.toLowerCase().trim()
-        );
-
+        console.log("selecting")
+        let selectedShelf = document.getElementById(genre.toLowerCase().trim());
         selectedShelf.classList.add("selected");
       }
 
       function resetShelves() {
         document.querySelectorAll(".shelf").forEach((shelf) => {
+          console.log("resetting")
           shelf.style.backgroundColor = "#ffffff";
           shelf.classList.remove("selected");
         });
@@ -508,13 +547,85 @@
       document.querySelectorAll(".book-cover").forEach((book) => {
         book.addEventListener("click", () => {
           const bookDetails = bookInfo[book.id];
+          console.log("Attempting to trend title", )
           if (bookDetails) {
+            console.log(bookDetails)
+            console.log(bookDetails.shelf)
             resetShelves();
             const shelf = document.getElementById(bookDetails.shelf);
+            genre = bookDetails.shelf
             selectShelf(shelf);
+          }else{
+            console.log("No Book Details")
           }
         });
       });
+
+      const bookInfo = [
+        {
+          id: "book1",
+          title: "A Brief History of Time",
+          author: "Stephen Hawking",
+          cover: "../assets/TrendingTitles/physics.jpg",
+          shelf: genre,
+        },
+        {
+          id: "book1",
+          title: "A Brief History of Time",
+          author: "Stephen Hawking",
+          cover: "../assets/TrendingTitles/physics.jpg",
+          shelf: "physics",
+        },
+        {
+          id: "book2",
+          title: "Wicked: The Play",
+          author: "Gregory Maguire",
+          cover: "../assets/TrendingTitles/play.jpg",
+          shelf: "plays",
+        },
+        {
+          id: "book3",
+          title: "The Holy Bible",
+          author: "Various Authors",
+          cover: "../assets/TrendingTitles/religion.jpg",
+          shelf: "religion",
+        },
+        {
+          id: "book4",
+          title: "It Ends With Us",
+          author: "Colleen Hoover",
+          cover: "../assets/TrendingTitles/romace.jpg",
+          shelf: "romance",
+        },
+        {
+          id: "book5",
+          title: "A Hitchhiker's Guide to the Galaxy",
+          author: "Douglas Adams",
+          cover: "../assets/TrendingTitles/sciencefiction.jpeg",
+          shelf: "science fiction",
+        },
+        {
+          id: "book6",
+          title: "IT",
+          author: "Stepen King",
+          cover: "../assets/TrendingTitles/horror.jpeg",
+          shelf: "horror",
+        },
+        {
+          id: "book7",
+          title: "Green Eggs and Ham",
+          author: "Dr Suess",
+          cover: "../assets/TrendingTitles/kids.jpg",
+          shelf: "kids books",
+        },
+        {
+          id: "book9",
+          title: "Cracking teh Coding Interview",
+          author: "Douglas Adams",
+          cover: "../assets/TrendingTitles/programming.jpeg",
+          shelf: "programming",
+        }
+      ];
     </script>
   </body>
 </html>
