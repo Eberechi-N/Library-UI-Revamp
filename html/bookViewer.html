@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Your Title</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden; /* Remove scrollbars */
+      }
+
+      canvas {
+        display: block; /* Ensures the canvas fills the window */
+      }
+      .nav-pills .nav-link.active {
+            background-color: rgb(222, 161, 222);
+        }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+          <a class="navbar-brand" href="../index.html">
+              <img src="\assets\icon.png" width="30" height="30" alt="library icon with book inside">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav nav-pills">
+                  <li class="nav-item">
+                      <a class="nav-link" href="../index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="roomreservation.html">Rooms</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="services.html">Services</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="search.html">Search</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" href="login.html">Login</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      //Session Data from Books
+      let cover = sessionStorage.getItem("cover");
+      let sentence = sessionStorage.getItem("first_sentence");
+      let pageCount = sessionStorage.getItem("pages");
+
+      //Three JS Scene Stuff
+      const scene = new THREE.Scene();
+      const textureLoader = new THREE.TextureLoader();
+      const camera = new THREE.PerspectiveCamera(
+        75, // Field of view
+        window.innerWidth / window.innerHeight, // Aspect ratio
+        0.1, // Near clipping plane
+        1000 // Far clipping plane
+      );
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      //Light
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(10, 10, 10).normalize();
+      scene.add(light);
+
+      //Library background
+      const backgroundTexture = textureLoader.load("../assets/bookSpines.jpg"); // Replace with your image URL
+      scene.background = backgroundTexture;
+
+      //Orbit Controls
+      const controls = new OrbitControls(camera, renderer.domElement);
+
+      //This is how we estimate the size of the book using pages
+      const pageSize = pagesToInches(pageCount);
+
+      //The Book Structure itself Inches
+      const geometry = new THREE.BoxGeometry(5.5, 8.25, pageSize);
+      
+      //Images around book
+      const imageTexture = textureLoader.load(cover); // Replace with your image URL
+      const sidepages = textureLoader.load("../assets/BookViewer/pages.jpeg");
+      const toppages = textureLoader.load("../assets/BookViewer/pagestop&bot.jpeg");
+      const sideTexture = textureLoader.load("../assets/BookViewer/bookTexture.jpg")
+      
+      //First Sentence on Back
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#4b2d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "white";
+      ctx.font = "30px Arial"; // Reduced font size
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+
+      const text = sentence; //First Sentence of Novel
+
+      //Text Spacing & wrapping
+      const lineHeight = 40; 
+      const maxWidth = canvas.width - 20;
+      let x = 10; 
+      let y = 10; 
+
+      function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const words = text.split(" ");
+        let line = "";
+
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + " ";
+          const testWidth = context.measureText(testLine).width;
+
+          if (testWidth > maxWidth && i > 0) {
+            context.fillText(line, x, y);
+            line = words[i] + " ";
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        context.fillText(line, x, y);
+      }
+
+      wrapText(ctx, text, x, y, maxWidth, lineHeight);
+
+      // Create a textures from the canvas (Cover, and Book Sides)
+      const textTexture = new THREE.CanvasTexture(canvas);
+      const materials = [
+        new THREE.MeshBasicMaterial({ map: sidepages }), // Right face with image
+        new THREE.MeshBasicMaterial({ map: sideTexture }), // Left face with solid color
+        new THREE.MeshBasicMaterial({ map: toppages }), // Top face with text
+        new THREE.MeshBasicMaterial({ map: toppages }), // Bottom face
+        new THREE.MeshBasicMaterial({ map: imageTexture }), // Front face
+        new THREE.MeshBasicMaterial({ map: textTexture }), // Back face
+      ];
+
+  
+      const cube = new THREE.Mesh(geometry, materials);
+      scene.add(cube);
+
+      // Position Camera
+      camera.position.z = 10;
+      controls.update();
+
+      // Animation Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      function pagesToInches(pages) {
+        const pagesPerInch = 175;
+        const inches = pages / pagesPerInch;
+        return inches.toFixed(2); 
+      }
+    </script>
+  </body>
+</html>

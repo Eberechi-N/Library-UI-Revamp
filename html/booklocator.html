@@ -11,15 +11,14 @@
     />
     <style>
       body {
-            background-color: thistle;
+        background-color: thistle;
       }
       .nav-pills .nav-link.active {
-          background-color: rgb(222, 161, 222);
+        background-color: rgb(222, 161, 222);
       }
-      .books{
+      .books {
         background-color: rgb(222, 161, 222);
         border-radius: 15px;
-
       }
       #floorplan {
         position: relative;
@@ -38,15 +37,14 @@
         font-size: 14px;
         text-align: center;
         border-radius: 5px;
-        
       }
       .shelf:hover {
         transform: scale(1.05);
       }
       .shelf.selected {
-        background-color:  rgb(222, 161, 222) !important;
+        background-color: rgb(222, 161, 222) !important;
       }
-      
+
       #info-box {
         background-color: #f8f9fa;
         border: 1px solid #ddd;
@@ -81,16 +79,31 @@
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../assets/icon.png" width="30" height="30" alt="library icon with book inside">
+          <img
+            src="../assets/icon.png"
+            width="30"
+            height="30"
+            alt="library icon with book inside"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
           <ul class="navbar-nav nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link active" href="../index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="roomreservation.html">Rooms</a>
@@ -123,7 +136,7 @@
                 left: 5px;
                 width: 30px;
                 height: 160px;
-                background-color: #ffffff;  
+                background-color: #ffffff;
                 writing-mode: vertical-rl;
               "
             >
@@ -139,7 +152,7 @@
                 width: 30px;
                 height: 160px;
                 background-color: #ffffff;
-                writing-mode: vertical-rl;    
+                writing-mode: vertical-rl;
               "
             >
               Religion
@@ -153,8 +166,8 @@
                 left: 5px;
                 width: 30px;
                 height: 160px;
-                background-color: #ffffff;    
-                writing-mode: vertical-rl; 
+                background-color: #ffffff;
+                writing-mode: vertical-rl;
               "
             >
               History
@@ -201,7 +214,7 @@
                 background-color: #ffffff;
               "
             >
-            Kids Books
+              Kids Books
             </div>
             <div
               class="shelf"
@@ -216,7 +229,6 @@
             >
               Fantasy
             </div>
-            
 
             <!-- Top ROW 1 -->
             <div
@@ -326,92 +338,135 @@
               Mystery
             </div>
 
-             <!-- Last ROW 3 -->
-             <div
-             class="shelf"
-             id="horror"
-             style="
-               top: 305px;
-               left: 95px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Horror
-           </div>
-           <div
-             class="shelf"
-             id="science fiction"
-             style="
-               top: 305px;
-               left: 262px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Science Fiction
-           </div>
-           <div
-             class="shelf"
-             id="romance"
-             style="
-               top: 305px;
-               left: 430px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Romance
-           </div>
-           <div
-             class="shelf"
-             id="thriller"
-             style="
-               top: 305px;
-               left: 597px;
-               width: 165px;
-               height: 30px;
-               background-color: #ffffff;
-             "
-           >
-             Thriller
-           </div>
+            <!-- Last ROW 3 -->
+            <div
+              class="shelf"
+              id="horror"
+              style="
+                top: 305px;
+                left: 95px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Horror
+            </div>
+            <div
+              class="shelf"
+              id="science fiction"
+              style="
+                top: 305px;
+                left: 262px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Science Fiction
+            </div>
+            <div
+              class="shelf"
+              id="romance"
+              style="
+                top: 305px;
+                left: 430px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Romance
+            </div>
+            <div
+              class="shelf"
+              id="thriller"
+              style="
+                top: 305px;
+                left: 597px;
+                width: 165px;
+                height: 30px;
+                background-color: #ffffff;
+              "
+            >
+              Thriller
+            </div>
           </div>
         </div>
         <!-- Information Box -->
         <div class="col-md-4">
           <div id="info-box">
             <h5>Book Information</h5>
-            <p id="shelf-info">
-              Click on a shelf or book cover to view details.
-            </p>
+            <p id="shelf-info"></p>
           </div>
         </div>
       </div>
-      <!-- Book Covers -->
-      <div class="row mt-4 text-center books">
-        <h2>Books on your list</h2>
+      <!--Trending Books  -->
+      <div class="row mt-5 text-center books">
+        <h2>Locate Popular Titles</h2>
         <div class="col-3">
-          <div class="book-cover" id="book1">
-            <img src="\assets\hungerGames.jpg" alt="Hunger Games Cover" />
+          <div class="book-cover" id="1">
+            <img
+              src="../assets/TrendingTitles/physics.jpg"
+              alt="A Brief History of Time"
+            />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book2">
-            <img src="\assets\physicsTb.jpg" alt="Physics for Beginners Cover" />
+          <div class="book-cover" id="2">
+            <img
+              src="../assets/TrendingTitles/play.jpg"
+              alt="Wicked: The Play"
+              alt="Physics for Beginners Cover"
+            />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book3">
-            <img src="\assets\artOfDesign.jpg" alt="The Art of Design Cover" />
+          <div class="book-cover" id="3">
+            <img
+              src="../assets/TrendingTitles/religion.jpg"
+              alt="The Holy Bible"
+            />
           </div>
         </div>
         <div class="col-3">
-          <div class="book-cover" id="book4">
-            <img src="\assets\BriefHistoryTime.jpg" alt="A Brief History of Time Cover" />
+          <div class="book-cover" id="4">
+            <img
+              src="../assets/TrendingTitles/romace.jpg"
+              alt="Its Ends with Us"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="5">
+            <img
+              src="../assets/TrendingTitles/sciencefiction.jpeg"
+              alt="A hitchhikers Guide to the Galaxy"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="6">
+            <img
+              src="../assets/TrendingTitles/horror.jpeg"
+              alt="It"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="7">
+            <img
+              src="../assets/TrendingTitles/kids.jpg"
+              alt="Green Eggs and Ham"
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="book-cover" id="8">
+            <img
+              src="../assets/TrendingTitles/programming.jpeg"
+              alt="Cracking the Coding Interview"
+            />
           </div>
         </div>
       </div>
@@ -421,6 +476,8 @@
 
     <script>
       /*
+
+        All Avaliable Genres
         Fantasy
         Horror
         Literature
@@ -439,27 +496,44 @@
         Kids Books
         
         */
-      const params = new URLSearchParams(window.location.search);
-      const firstQuery = params.get('q');
-      
-      
-      let selectedShelf = document.getElementById(firstQuery.toLowerCase);
-      selectShelf(selectedShelf);
-      
-      console.log("Book Locator", firstQuery)
-      function selectShelf(shelf){
-        shelf.classList.add("selected");
+      let author = sessionStorage.getItem("author");
+      let title = sessionStorage.getItem("title");
+      let cover = sessionStorage.getItem("cover");
+      let genre = sessionStorage.getItem("genre");
 
-        document.getElementById(
-          "shelf-info"
-        ).innerHTML = `<strong>Selected Book:</strong> ${bookDetails.title}<br><em>${bookDetails.description}</em><br>Located on: ${bookDetails.shelf}.`;
+      //Book Information Display
+      let shelfInfo = document.getElementById("shelf-info");
+
+      if (title && author && cover && genre) {
+        shelfInfo.innerHTML = `
+        <div style="display: flex; align-items: flex-start; gap: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; max-width: 600px; background-color: #f9f9f9;">
+            <img class = "book-cover" id = 0 src="${cover}" alt="Book Cover" style="width: 120px; height: auto; border-radius: 4px;">
+            <div>
+                <h5 style="margin: 0; font-size: 1.25rem; color: #333;">${title}</h5>
+                <p style="margin: 5px 0; font-size: 1rem; color: #555;">by <strong>${author}</strong></p>
+                <p style="margin: 5px 0; font-size: 0.95rem; color: #666;"><em>Genre:</em> ${genre}</p>
+            </div>
+        </div>
+    `;
+      } else {
+        shelfInfo.innerHTML = `<p style="color: #888;">No book information available.</p>`;
+      }
+
+      selectShelf(genre.toLowerCase().trim());
+
+      console.log("Book Locator", genre.toLowerCase().trim());
+
+      function selectShelf(subjectName) {
+        console.log("selecting")
+        let selectedShelf = document.getElementById(genre.toLowerCase().trim());
+        selectedShelf.classList.add("selected");
       }
 
       function resetShelves() {
         document.querySelectorAll(".shelf").forEach((shelf) => {
+          console.log("resetting")
           shelf.style.backgroundColor = "#ffffff";
           shelf.classList.remove("selected");
-
         });
       }
 
@@ -472,15 +546,86 @@
 
       document.querySelectorAll(".book-cover").forEach((book) => {
         book.addEventListener("click", () => {
-          const bookDetails = bookInfo[book.id]; 
+          const bookDetails = bookInfo[book.id];
+          console.log("Attempting to trend title", )
           if (bookDetails) {
+            console.log(bookDetails)
+            console.log(bookDetails.shelf)
             resetShelves();
             const shelf = document.getElementById(bookDetails.shelf);
+            genre = bookDetails.shelf
             selectShelf(shelf);
-            
+          }else{
+            console.log("No Book Details")
           }
         });
       });
+
+      const bookInfo = [
+        {
+          id: "book1",
+          title: "A Brief History of Time",
+          author: "Stephen Hawking",
+          cover: "../assets/TrendingTitles/physics.jpg",
+          shelf: genre,
+        },
+        {
+          id: "book1",
+          title: "A Brief History of Time",
+          author: "Stephen Hawking",
+          cover: "../assets/TrendingTitles/physics.jpg",
+          shelf: "physics",
+        },
+        {
+          id: "book2",
+          title: "Wicked: The Play",
+          author: "Gregory Maguire",
+          cover: "../assets/TrendingTitles/play.jpg",
+          shelf: "plays",
+        },
+        {
+          id: "book3",
+          title: "The Holy Bible",
+          author: "Various Authors",
+          cover: "../assets/TrendingTitles/religion.jpg",
+          shelf: "religion",
+        },
+        {
+          id: "book4",
+          title: "It Ends With Us",
+          author: "Colleen Hoover",
+          cover: "../assets/TrendingTitles/romace.jpg",
+          shelf: "romance",
+        },
+        {
+          id: "book5",
+          title: "A Hitchhiker's Guide to the Galaxy",
+          author: "Douglas Adams",
+          cover: "../assets/TrendingTitles/sciencefiction.jpeg",
+          shelf: "science fiction",
+        },
+        {
+          id: "book6",
+          title: "IT",
+          author: "Stepen King",
+          cover: "../assets/TrendingTitles/horror.jpeg",
+          shelf: "horror",
+        },
+        {
+          id: "book7",
+          title: "Green Eggs and Ham",
+          author: "Dr Suess",
+          cover: "../assets/TrendingTitles/kids.jpg",
+          shelf: "kids books",
+        },
+        {
+          id: "book9",
+          title: "Cracking teh Coding Interview",
+          author: "Douglas Adams",
+          cover: "../assets/TrendingTitles/programming.jpeg",
+          shelf: "programming",
+        }
+      ];
     </script>
   </body>
 </html>
